@@ -1,12 +1,15 @@
 import styles from './search.form.module.scss';
 import { useSearch } from '../../hooks/useSearch';
+import { useMovies } from '../../hooks/useMovies';
 
 export default function SearchForm() {
 	const { error, searchValue, setSearchValue } = useSearch();
+	const { getMovies } = useMovies();
 
 	const handleSubmit = (event) => {
 		if (error !== '') return;
 		event.preventDefault();
+		getMovies(searchValue);
 	};
 
 	const handleChange = (event) => {
@@ -14,6 +17,7 @@ export default function SearchForm() {
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
 		setSearchValue(newSearchValue);
+		getMovies(newSearchValue);
 	};
 
 	return (
