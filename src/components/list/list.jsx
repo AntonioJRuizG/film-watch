@@ -1,5 +1,6 @@
 import { useMovies } from '../../hooks/useMovies';
 import MovieCard from '../card/movie.card';
+import styles from './list.module.scss';
 
 export default function MoviesList() {
 	const { movies: mappedMovies } = useMovies();
@@ -7,12 +8,14 @@ export default function MoviesList() {
 	const hasMovies = mappedMovies?.length > 0;
 
 	return (
-		<div>
+		<section>
 			{hasMovies ? (
-				<MovieCard movies={mappedMovies}></MovieCard>
+				<ul className={styles.listContainer}>
+					<MovieCard movies={mappedMovies}></MovieCard>
+				</ul>
 			) : (
 				<p>No results</p>
 			)}
-		</div>
+		</section>
 	);
 }

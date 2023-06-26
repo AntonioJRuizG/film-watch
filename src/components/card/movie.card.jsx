@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function MovieCard({ movies }) {
 	return (
-		<ul>
+		<>
 			{movies.map((movie) => (
 				<li key={movie.id}>
 					<h3>{movie.title}</h3>
@@ -9,6 +9,6 @@ export default function MovieCard({ movies }) {
 					<img src={movie.image} alt={movie.title}></img>
 				</li>
 			))}
-		</ul>
+		</>
 	);
 }
