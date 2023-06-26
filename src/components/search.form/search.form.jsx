@@ -7,8 +7,8 @@ export default function SearchForm() {
 	const { getMovies } = useMovies();
 
 	const handleSubmit = (event) => {
-		if (error !== '') return;
 		event.preventDefault();
+		if (error !== '' || event.currentTarget[0].value === '') return;
 		getMovies(searchValue);
 	};
 
@@ -17,6 +17,7 @@ export default function SearchForm() {
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
 		setSearchValue(newSearchValue);
+		if (error !== '') return;
 		getMovies(newSearchValue);
 	};
 
