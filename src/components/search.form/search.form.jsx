@@ -16,8 +16,8 @@ export default function SearchForm() {
 		const element = event.target;
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
+		console.log(newSearchValue);
 		setSearchValue(newSearchValue);
-		if (error !== '') return;
 		getMovies(newSearchValue);
 	};
 
