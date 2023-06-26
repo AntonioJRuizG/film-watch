@@ -1,17 +1,18 @@
-import { useMovies } from '../../hooks/useMovies';
+import { useContext } from 'react';
 import MovieCard from '../card/movie.card';
 import styles from './list.module.scss';
+import { MoviesContext } from '../../context/MoviesContext';
 
 export default function MoviesList() {
-	const { movies: mappedMovies } = useMovies();
+	const { movies } = useContext(MoviesContext);
 
-	const hasMovies = mappedMovies?.length > 0;
+	const hasMovies = movies?.length > 0;
 
 	return (
 		<section>
 			{hasMovies ? (
 				<ul className={styles.listContainer}>
-					<MovieCard movies={mappedMovies}></MovieCard>
+					<MovieCard movies={movies}></MovieCard>
 				</ul>
 			) : (
 				<p>No results</p>
