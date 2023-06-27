@@ -4,7 +4,7 @@ import { useMovies } from '../../hooks/useMovies';
 
 export default function SearchForm() {
 	const { error, searchValue, setSearchValue } = useSearch();
-	const { getMovies } = useMovies();
+	const { getMovies } = useMovies({ searchValue });
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -17,7 +17,6 @@ export default function SearchForm() {
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
 		setSearchValue(newSearchValue);
-		getMovies(newSearchValue);
 	};
 
 	return (
