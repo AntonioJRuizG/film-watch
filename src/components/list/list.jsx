@@ -16,7 +16,7 @@ export default function MoviesList() {
 						<MovieCard movies={movies}></MovieCard>
 					</ul>
 				) : (
-					<p>No results</p>
+					<p>Your search did not match any movies.</p>
 				))}
 		</section>
 	);

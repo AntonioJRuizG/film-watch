@@ -26,7 +26,7 @@ export default function SearchForm() {
 					type='text'
 					name='search'
 					value={searchValue}
-					placeholder='Forrest Gump, Jumanji, Avengers ...'
+					placeholder='Avengers, Matrix ...'
 					onChange={handleChange}
 				></input>
 				<button type='submit'>Search</button>
