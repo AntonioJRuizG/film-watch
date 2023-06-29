@@ -20,7 +20,6 @@ export default function SearchForm() {
 	// NOTE: Implement useCallback to make sure the function is always the same and it is not redeclarated on every render. debounce is already a callback.
 	const debouncedGetMovies = useCallback(
 		debounce((searchValue) => {
-			console.log('que');
 			getMovies(searchValue);
 		}, 300),
 		[]
@@ -31,7 +30,6 @@ export default function SearchForm() {
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
 		updateSearchValue(newSearchValue);
-		console.log(newSearchValue);
 		debouncedGetMovies(newSearchValue);
 	};
 
@@ -54,7 +52,7 @@ export default function SearchForm() {
 				<div>
 					<label className={styles.checkboxes}>
 						<input type='checkbox' onChange={handleSort} checked={sort}></input>
-						<span>Sorted alphabetically</span>
+						<span>Sort alphabetically</span>
 					</label>
 				</div>
 			</form>
