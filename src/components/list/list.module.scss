@@ -1,8 +1,17 @@
 section {
 	width: 100%;
 }
+
 .listContainer {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	gap: 0.5rem;
+}
+
+@media screen and (min-width: 500px) {
+	.listContainer {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 1rem;
+	}
 }

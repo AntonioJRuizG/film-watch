@@ -5,6 +5,10 @@ export function useSearch() {
 	const [error, setError] = useState('');
 	const isFirstSearch = useRef(true);
 
+	const updateSearchValue = (newValue) => {
+		setSearchValue(newValue);
+	};
+
 	useEffect(() => {
 		if (isFirstSearch.current) {
 			isFirstSearch.current = searchValue === '';
@@ -29,5 +33,5 @@ export function useSearch() {
 		setError('');
 	}, [searchValue]);
 
-	return { searchValue, error, setSearchValue };
+	return { searchValue, error, updateSearchValue };
 }

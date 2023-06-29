@@ -1,34 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { MoviesContext } from '../context/MoviesContext';
+import { movieRepo } from '../services/moviesRepo';
 
-export function useMovies() {
-	const { updateMovies } = useContext(MoviesContext);
+export function useMovies(searchValue) {
+	const { updateMovies, updateLoading, sort, movies, updateSortMoviesList } =
+		useContext(MoviesContext);
+	const previousSearchValue = useRef(searchValue);
 
-	const movieRepo = async (searchValue) => {
-		const res = await fetch(
-			`https://www.omdbapi.com/?apikey=4287ad07&s=${searchValue}`
-		);
-
-		if (!res.ok) throw console.error('Fetch error');
-
-		const data = await res.json();
-		const { Search } = data;
-
-		return Search;
-	};
-
-	const getMovies = useCallback(async (searchValue) => {
-		const newMovies = await movieRepo(searchValue);
-		const mappedMovies = newMovies?.map((movie) => ({
-			id: movie.imdbID,
-			title: movie.Title,
-			image: movie.Poster,
-			year: movie.Year,
-		}));
-
-		updateMovies(mappedMovies);
+	const getMovies = useCallback(async (search) => {
+		if (previousSearchValue.current === search) return;
+		updateLoading(true);
+		previousSearchValue.current = search;
+		const newMovies = await movieRepo(search);
+		updateMovies(newMovies);
+		updateLoading(false);
 	}, []);
+
+	/* const getSortedMovies = () => {
+		updateSortMoviesList(
+			[...movies]?.sort((a, b) => a.title.localeCompare(b.title))
+		);
+	}; */
+
+	// NOTE: useMemo avoid unnecessary sortedList computation:
+	const sortedMovies = useMemo(() => {
+		return movies !== undefined
+			? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+			: movies;
+	}, [movies]);
+
+	useEffect(() => {
+		if (sort && movies) {
+			updateSortMoviesList(sortedMovies);
+		}
+	}, [sort, movies]);
 
 	return { getMovies };
 }
