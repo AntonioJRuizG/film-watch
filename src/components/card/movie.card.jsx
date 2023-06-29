@@ -4,7 +4,7 @@ import styles from './movie.card.module.scss';
 export default function MovieCard({ movies }) {
 	return (
 		<>
-			{movies.map((movie) => (
+			{movies?.map((movie) => (
 				<li key={movie.id} className={styles.card}>
 					<h3>{movie.title}</h3>
 					<p>{movie.year}</p>

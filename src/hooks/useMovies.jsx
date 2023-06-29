@@ -23,9 +23,11 @@ export function useMovies(searchValue) {
 		);
 	}; */
 
-	// NOTE: useMemo avoid unnecesary sortedList computation:
+	// NOTE: useMemo avoid unnecessary sortedList computation:
 	const sortedMovies = useMemo(() => {
-		return [...movies]?.sort((a, b) => a.title.localeCompare(b.title));
+		return movies !== undefined
+			? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+			: movies;
 	}, [movies]);
 
 	useEffect(() => {

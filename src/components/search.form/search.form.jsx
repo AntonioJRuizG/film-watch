@@ -6,7 +6,7 @@ import { MoviesContext } from '../../context/MoviesContext';
 
 export default function SearchForm() {
 	const { sort, sortList, movies } = useContext(MoviesContext);
-	const { error, searchValue, setSearchValue } = useSearch();
+	const { error, searchValue, updateSearchValue } = useSearch();
 	const { getMovies } = useMovies({ searchValue });
 
 	const handleSubmit = (event) => {
@@ -19,7 +19,8 @@ export default function SearchForm() {
 		const element = event.target;
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
-		setSearchValue(newSearchValue);
+		updateSearchValue(newSearchValue);
+		getMovies(searchValue);
 	};
 
 	const handleSort = () => {
