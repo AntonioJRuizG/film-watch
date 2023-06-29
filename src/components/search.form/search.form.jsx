@@ -1,8 +1,11 @@
 import styles from './search.form.module.scss';
 import { useSearch } from '../../hooks/useSearch';
 import { useMovies } from '../../hooks/useMovies';
+import { useContext } from 'react';
+import { MoviesContext } from '../../context/MoviesContext';
 
 export default function SearchForm() {
+	const { sort, sortList, movies } = useContext(MoviesContext);
 	const { error, searchValue, setSearchValue } = useSearch();
 	const { getMovies } = useMovies({ searchValue });
 
@@ -19,6 +22,10 @@ export default function SearchForm() {
 		setSearchValue(newSearchValue);
 	};
 
+	const handleSort = () => {
+		if (movies) sortList(!sort);
+	};
+
 	return (
 		<section className={styles.section}>
 			<form className={styles.form} onSubmit={handleSubmit}>
@@ -29,7 +36,14 @@ export default function SearchForm() {
 					placeholder='Avengers, Matrix ...'
 					onChange={handleChange}
 				></input>
+
 				<button type='submit'>Search</button>
+				<div>
+					<label className={styles.checkboxes}>
+						<input type='checkbox' onChange={handleSort} checked={sort}></input>
+						<span>Sorted alphabetically</span>
+					</label>
+				</div>
 			</form>
 			<p className={styles.errorText}>{error}</p>
 		</section>
