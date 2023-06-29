@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { MoviesContext } from '../context/MoviesContext';
 import { movieRepo } from '../services/moviesRepo';
 
@@ -17,11 +17,20 @@ export function useMovies(searchValue) {
 		updateLoading(false);
 	}, []);
 
+	/* const getSortedMovies = () => {
+		updateSortMoviesList(
+			[...movies]?.sort((a, b) => a.title.localeCompare(b.title))
+		);
+	}; */
+
+	// NOTE: useMemo avoid unnecesary sortedList computation:
+	const sortedMovies = useMemo(() => {
+		return [...movies]?.sort((a, b) => a.title.localeCompare(b.title));
+	}, [movies]);
+
 	useEffect(() => {
 		if (sort && movies) {
-			updateSortMoviesList(
-				[...movies]?.sort((a, b) => a.title.localeCompare(b.title))
-			);
+			updateSortMoviesList(sortedMovies);
 		}
 	}, [sort, movies]);
 
