@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from './search.form.module.scss';
 import { useSearch } from '../../hooks/useSearch';
 import { useMovies } from '../../hooks/useMovies';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { MoviesContext } from '../../context/MoviesContext';
+import debounce from 'just-debounce-it';
 
 export default function SearchForm() {
 	const { sort, sortList, movies } = useContext(MoviesContext);
@@ -15,12 +17,22 @@ export default function SearchForm() {
 		getMovies(searchValue);
 	};
 
+	// NOTE: Implement useCallback to make sure the function is always the same and it is not redeclarated on every render. debounce is already a callback.
+	const debouncedGetMovies = useCallback(
+		debounce((searchValue) => {
+			console.log('que');
+			getMovies(searchValue);
+		}, 300),
+		[]
+	);
+
 	const handleChange = (event) => {
 		const element = event.target;
 		const newSearchValue = element.value;
 		if (newSearchValue === ' ') return;
 		updateSearchValue(newSearchValue);
-		getMovies(searchValue);
+		console.log(newSearchValue);
+		debouncedGetMovies(newSearchValue);
 	};
 
 	const handleSort = () => {
