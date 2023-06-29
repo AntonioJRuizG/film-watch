@@ -1,7 +1,7 @@
 const API_KEY = '4287ad07';
 
 export async function movieRepo(searchValue) {
-	if (searchValue === '') return null;
+	if (searchValue === '') return [];
 
 	const res = await fetch(
 		`https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchValue}`
