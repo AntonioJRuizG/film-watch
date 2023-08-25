@@ -2,7 +2,7 @@
 
 ## Description
 
-This application is a movie search engine that utilizes the collection of data avaible in IMBD's database.
+This application is a movie search engine that utilizes the collection of data available in IMBD's database.
 
 ## Deployment
 
